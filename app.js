@@ -524,19 +524,19 @@ let SECTIONS = {};   // will be filled from sections.json
       const etaVy = Vypl_Rd > 0 ? VyEd / Vypl_Rd : 0;
       const etaVz = Vzpl_Rd > 0 ? VzEd / Vzpl_Rd : 0;
 
-      let shearSummary = "";
-      shearSummary += "Shear ratio η_Vy = V_y,Ed / V_pl,y,Rd = " + etaVy.toFixed(3);
-      if (etaVy > 1.0) shearSummary += "  (FAIL, V_y,Ed > V_pl,y,Rd)";
-      else if (etaVy > 0.5) shearSummary += "  (HIGH SHEAR, > 0.5·V_pl,y,Rd)";
-      else shearSummary += "  (normal shear)";
-      shearSummary += "\n";
-
       shearSummary += "Shear ratio η_Vz = V_z,Ed / V_pl,z,Rd = " + etaVz.toFixed(3);
       if (etaVz > 1.0) shearSummary += "  (FAIL, V_z,Ed > V_pl,z,Rd)";
       else if (etaVz > 0.5) shearSummary += "  (HIGH SHEAR, > 0.5·V_pl,z,Rd)";
       else shearSummary += "  (normal shear)";
       shearSummary += "\n";
       steps += shearSummary;
+        
+      let shearSummary = "";
+      shearSummary += "Shear ratio η_Vy = V_y,Ed / V_pl,y,Rd = " + etaVy.toFixed(3);
+      if (etaVy > 1.0) shearSummary += "  (FAIL, V_y,Ed > V_pl,y,Rd)";
+      else if (etaVy > 0.5) shearSummary += "  (HIGH SHEAR, > 0.5·V_pl,y,Rd)";
+      else shearSummary += "  (normal shear)";
+      shearSummary += "\n";
 
       // High shear reduction of bending resistances:
       let MyRd = My_Rd_base;
@@ -708,7 +708,8 @@ let SECTIONS = {};   // will be filled from sections.json
       steps += "Buckling interaction about y-y: η_y = " + eta_y.toFixed(3) + "\n";
       steps += "Buckling interaction about z-z: η_z = " + eta_z.toFixed(3) + "\n";
       steps += "Shear ratios: η_Vy = " + etaVy_abs.toFixed(3) + ", η_Vz = " + etaVz_abs.toFixed(3) + "\n";
-
+      steps += "Shear ratios: η_Vz = " + etaVz_abs.toFixed(3) + ", η_Vy = " + etaVy_abs.toFixed(3) + "\n";
+        
       const governing = Math.max(
         eta_sec_comb,
         eta_y,
@@ -749,8 +750,8 @@ let SECTIONS = {};   // will be filled from sections.json
       html += '<span class="utilization-badge ' + statusClass + '">';
       html += governing.toFixed(3) + " – " + statusText + "</span>";
       html += "<br/><br/>";
-      html += "Shear status Vy: " + shearFlag(etaVy_abs) + "   ";
-      html += "Shear status Vz: " + shearFlag(etaVz_abs);
+      html += "Shear status Vz: " + shearFlag(etaVz_abs) + "   ";
+      html += "Shear status Vy: " + shearFlag(etaVy_abs);
 
       resultsDiv.innerHTML = html;
     }
@@ -762,5 +763,6 @@ let SECTIONS = {};   // will be filled from sections.json
       document.getElementById("calc-btn").addEventListener("click", calculate);
       setGoverningChipMessage("Governing η: —");
     });
+
 
 
