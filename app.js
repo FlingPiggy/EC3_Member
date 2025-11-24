@@ -531,7 +531,6 @@ let SECTIONS = {};   // will be filled from sections.json
       else shearSummary += "  (normal shear)";
       shearSummary += "\n";
         
-      let shearSummary = "";
       shearSummary += "Shear ratio η_Vy = V_y,Ed / V_pl,y,Rd = " + etaVy.toFixed(3);
       if (etaVy > 1.0) shearSummary += "  (FAIL, V_y,Ed > V_pl,y,Rd)";
       else if (etaVy > 0.5) shearSummary += "  (HIGH SHEAR, > 0.5·V_pl,y,Rd)";
@@ -763,6 +762,7 @@ let SECTIONS = {};   // will be filled from sections.json
       document.getElementById("calc-btn").addEventListener("click", calculate);
       setGoverningChipMessage("Governing η: —");
     });
+
 
 
 
