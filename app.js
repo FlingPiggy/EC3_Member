@@ -377,9 +377,9 @@ let SECTIONS = {};   // will be filled from sections.json
       const dOverTw = d / sec.tw;
 
       let webClass;
-      if (dOverTw <= 72 * eps) webClass = 1;
-      else if (dOverTw <= 83 * eps) webClass = 2;
-      else if (dOverTw <= 124 * eps) webClass = 3;
+      if (dOverTw <= 33 * eps) webClass = 1;
+      else if (dOverTw <= 38 * eps) webClass = 2;
+      else if (dOverTw <= 42 * eps) webClass = 3;
       else webClass = 4;
 
       const governing = Math.max(flangeClass, webClass);
@@ -757,3 +757,4 @@ let SECTIONS = {};   // will be filled from sections.json
       document.getElementById("calc-btn").addEventListener("click", calculate);
       setGoverningChipMessage("Governing η: —");
     });
+
