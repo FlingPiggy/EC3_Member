@@ -11,8 +11,8 @@
     <header class="card">
       <h1>Eurocode 3 Member Buckling Calculator</h1>
       <p class="small">
-        Axial compression + biaxial bending + shear according to EN 1993-1-1.  
-        Member buckling checks about y-y and z-z with Eurocode interaction equations (6.61, 6.62).  
+        Axial compression + biaxial bending + shear according to EN 1993-1-1. <br>
+        Member buckling checks about y-y and z-z using Eurocode interaction equations with simplified interaction factors to NCCI.
       </p>
     </header>
 
@@ -28,8 +28,8 @@
             <label for="steel-grade">Steel grade (yield strength fy)</label>
             <select id="steel-grade">
               <option value="S235">S235 (nominal fy = 235 MPa)</option>
-              <option value="S275">S275 (nominal fy = 275 MPa)</option>
-              <option value="S355" selected>S355 (nominal fy = 355 MPa)</option>
+              <option value="S275" selected>S275 (nominal fy = 275 MPa)</option>
+              <option value="S355">S355 (nominal fy = 355 MPa)</option>
             </select>
             <div class="inline-note" id="fy-note">
               Select a section to see thickness-dependent fy reductions.
@@ -159,3 +159,4 @@
 
 </body>
 </html>
+
