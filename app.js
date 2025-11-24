@@ -358,7 +358,7 @@ let SECTIONS = {};   // will be filled from sections.json
     }
 
     // ---- Section classification (simplified EC3) ----
-    function classifySection(sec, fy) {
+    function classifySection(sec, fy, NEd) {
       const eps = Math.sqrt(235 / fy);
 
       // flange outstand (compression flange in bending)
@@ -375,11 +375,16 @@ let SECTIONS = {};   // will be filled from sections.json
       // web clear depth between fillets
       const d = Math.max(sec.h - 2 * sec.tf - 2 * sec.r, 0.0);
       const dOverTw = d / sec.tw;
+      const phi_web = 2 * NEd / sec.A / fy - 1;
+
+      let webclass3limit;
+      if (phi_web <= -1) webclass3limit = 62 * eps * (1 - phi_web) * Math.sqrt(-phi_web);
+      else webclass3limit = 42 * eps / (0.67 + 0.33 * phi_web);
 
       let webClass;
       if (dOverTw <= 33 * eps) webClass = 1;
       else if (dOverTw <= 38 * eps) webClass = 2;
-      else if (dOverTw <= 42 * eps) webClass = 3;
+      else if (dOverTw <= webclass3limit) webClass = 3;
       else webClass = 4;
 
       const governing = Math.max(flangeClass, webClass);
@@ -457,7 +462,7 @@ let SECTIONS = {};   // will be filled from sections.json
 
       // --- Section classification ---
       steps += "\n--- 0) Section classification (simplified EC3) ---\n";
-      const cls = classifySection(sec, fy);
+      const cls = classifySection(sec, fy, NEd);
       steps += "ε = sqrt(235 / fy) = " + cls.eps.toFixed(3) + "\n";
       steps += "Flange outstand c = (b - t_w) / 2 = " + ((sec.b - sec.tw) / 2).toFixed(1) + " mm\n";
       steps += "c / t_f = " + cls.cOverTf.toFixed(2) + " → flange class = " + cls.flangeClass + "\n";
@@ -757,4 +762,5 @@ let SECTIONS = {};   // will be filled from sections.json
       document.getElementById("calc-btn").addEventListener("click", calculate);
       setGoverningChipMessage("Governing η: —");
     });
+
 
